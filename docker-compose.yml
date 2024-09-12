@@ -1,0 +1,15 @@
+services:
+  php:
+    build:
+      context: docker/php
+      dockerfile: Dockerfile
+    container_name: php8
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "9000:9000"
+    environment:
+      XDEBUG_CONFIG: remote_enable=1 remote_autostart=1 remote_host=host.docker.internal remote_port=9003
+      PHP_IDE_CONFIG: serverName=Docker
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
