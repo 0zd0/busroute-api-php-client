@@ -13,6 +13,10 @@ abstract class AbstractModel
      */
     abstract public static function fromArray(array $response): static;
 
+    public static function fromString(string $response): static {
+        return new static();
+    }
+
     /**
      * Convert class to array
      *

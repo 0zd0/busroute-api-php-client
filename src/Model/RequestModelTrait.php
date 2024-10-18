@@ -27,11 +27,11 @@ trait RequestModelTrait
 
         return $this;
     }
-    
+
     public static function fromArrayRequest(array $response): static
     {
         $model = new static();
-        
+
         return $model->setAction($response['action']);
     }
 
