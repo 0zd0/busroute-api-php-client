@@ -6,7 +6,7 @@ use Onepix\BusrouteApiClient\Enum\ActionEnum;
 
 abstract class AbstractResultModel extends AbstractModel
 {
-    public const RESULT_KEY  = 'result';
+    public const RESULT_KEY  = 'results';
     public const COUNTER_KEY = 'counter';
     public const ACTION_KEY  = 'action';
     public const ERROR_KEY   = 'error';
