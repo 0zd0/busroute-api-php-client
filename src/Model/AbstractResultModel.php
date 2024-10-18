@@ -151,12 +151,18 @@ abstract class AbstractResultModel extends AbstractModel
         if (static::ARRAY_MODELS) {
             $this->multipleReturns = array_map(
                 function ($item) use ($returnModel) {
-                    return is_array($item) ? $returnModel::fromArray($item) : $item;
+                    if (is_string($item)) {
+                        return $returnModel::fromString($item);
+                    } elseif (is_array($item)) {
+                        return $returnModel::fromArray($item);
+                    }
+
+                    return $item;
                 },
                 $return
             );
         } else {
-            $this->singleReturn = $returnModel::fromArray($return);
+            $this->singleReturn = static::RETURN_MODEL::fromArray($return);
         }
 
         return $this;

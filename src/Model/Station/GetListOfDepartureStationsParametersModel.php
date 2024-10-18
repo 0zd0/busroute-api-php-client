@@ -5,7 +5,7 @@ namespace Onepix\BusrouteApiClient\Model\Station;
 use Onepix\BusrouteApiClient\Model\AbstractModel;
 use Onepix\BusrouteApiClient\Model\RequestModelTrait;
 
-class GetListOfDepartureStationsParameters extends AbstractModel
+class GetListOfDepartureStationsParametersModel extends AbstractModel
 {
     use RequestModelTrait;
 
@@ -14,7 +14,7 @@ class GetListOfDepartureStationsParameters extends AbstractModel
      */
     public static function fromArray(array $response): static
     {
-        // TODO: Implement fromArray() method.
+        return static::fromArrayRequest($response);
     }
 
     /**
@@ -22,6 +22,6 @@ class GetListOfDepartureStationsParameters extends AbstractModel
      */
     public function toArray(): array
     {
-        // TODO: Implement toArray() method.
+        return $this->toArrayRequestData();
     }
 }
