@@ -156,7 +156,7 @@ class GetListOfRoutesParametersModel extends AbstractModel
                     self::DEPARTURE_STATION_KEY => $this->getDepartureStation(),
                     self::ARRIVAL_STATION_KEY   => $this->getArrivalStation(),
                     self::NUMBER_OF_SEATS_KEY   => $this->getNumberOfSeats(),
-                    self::FULL_DATA_KEY         => $this->getFullData() ?? $this->getFullData()->value,
+                    self::FULL_DATA_KEY         => $this->getFullData()?->value,
                 ],
                 $this->toArrayRequestData()
             ),
