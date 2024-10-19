@@ -6,6 +6,7 @@ use Onepix\BusrouteApiClient\Model\AbstractResultModel;
 
 class BookTicketsResponseModel extends AbstractResultModel
 {
+    public const ARRAY_MODELS = false;
     public const RETURN_MODEL = BookTicketsModel::class;
 
     /**
