@@ -3,13 +3,17 @@
 namespace Onepix\BusrouteApiClient;
 
 use GuzzleHttp\Client;
+use Onepix\BusrouteApiClient\Service\OrderService;
 use Onepix\BusrouteApiClient\Service\RouteService;
+use Onepix\BusrouteApiClient\Service\StationService;
 
 class Api
 {
     protected HttpClient $client;
     protected string $apiKey;
     private ?RouteService $routeService = null;
+    private ?StationService $stationService = null;
+    private ?OrderService $orderService = null;
 
     public function __construct(
         string $apiKey
@@ -40,6 +44,9 @@ class Api
         );
     }
 
+    /**
+     * @return RouteService
+     */
     public function route(): RouteService
     {
         if (is_null($this->routeService)) {
@@ -47,5 +54,29 @@ class Api
         }
 
         return $this->routeService;
+    }
+
+    /**
+     * @return StationService
+     */
+    public function station(): StationService
+    {
+        if (is_null($this->routeService)) {
+            $this->stationService = new StationService($this->getClient());
+        }
+
+        return $this->stationService;
+    }
+
+    /**
+     * @return OrderService
+     */
+    public function order(): OrderService
+    {
+        if (is_null($this->routeService)) {
+            $this->orderService = new OrderService($this->getClient());
+        }
+
+        return $this->orderService;
     }
 }
