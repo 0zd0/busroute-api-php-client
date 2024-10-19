@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient\Model\Station;
 
+use Onepix\BusrouteApiClient\Enum\ActionEnum;
 use Onepix\BusrouteApiClient\Model\AbstractModel;
 use Onepix\BusrouteApiClient\Model\RequestModelTrait;
 
@@ -12,6 +13,11 @@ class GetListOfArrivalStationsParametersModel extends AbstractModel
     public const DEPARTURE_STATION_KEY = 'departure_station';
 
     protected string $departureStation;
+
+    public function __construct()
+    {
+        $this->setAction(ActionEnum::GET_LIST_OF_ARRIVAL_STATIONS);
+    }
 
     /**
      * @return string

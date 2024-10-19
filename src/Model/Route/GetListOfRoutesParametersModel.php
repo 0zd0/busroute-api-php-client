@@ -25,6 +25,11 @@ class GetListOfRoutesParametersModel extends AbstractModel
     protected int $numberOfSeats;
     protected ?FullDataEnum $fullData = null;
 
+    public function __construct()
+    {
+        $this->setAction(ActionEnum::GET_LIST_OF_ROUTES);
+    }
+
     /**
      * @return string
      */
@@ -123,11 +128,6 @@ class GetListOfRoutesParametersModel extends AbstractModel
         $this->numberOfSeats = $numberOfSeats;
 
         return $this;
-    }
-
-    public function __construct()
-    {
-        $this->setAction(ActionEnum::GET_LIST_OF_ROUTES);
     }
 
     /**

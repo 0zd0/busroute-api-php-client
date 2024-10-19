@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient\Model\Order;
 
+use Onepix\BusrouteApiClient\Enum\ActionEnum;
 use Onepix\BusrouteApiClient\Model\AbstractModel;
 use Onepix\BusrouteApiClient\Model\RequestModelTrait;
 
@@ -12,6 +13,11 @@ class GetOrderParametersModel extends AbstractModel
     public const TASS_ORDER_ID = 'tass_order_id';
 
     protected int $tassOrderId;
+
+    public function __construct()
+    {
+        $this->setAction(ActionEnum::GET_ORDER);
+    }
 
     /**
      * @return int

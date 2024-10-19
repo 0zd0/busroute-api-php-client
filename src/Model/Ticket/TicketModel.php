@@ -1,6 +1,6 @@
 <?php
 
-namespace Onepix\BusrouteApiClient\Model\Order;
+namespace Onepix\BusrouteApiClient\Model\Ticket;
 
 use DateTime;
 use Exception;
@@ -8,7 +8,7 @@ use Onepix\BusrouteApiClient\Enum\GenderEnum;
 use Onepix\BusrouteApiClient\Enum\TicketTypeEnum;
 use Onepix\BusrouteApiClient\Model\AbstractModel;
 
-class OrderTicketModel extends AbstractModel
+class TicketModel extends AbstractModel
 {
     public const SURNAME_KEY         = 'surname';
     public const FIRSTNAME_KEY       = 'firstname';
@@ -28,6 +28,7 @@ class OrderTicketModel extends AbstractModel
     public const TICKET_SERIES_KEY   = 'ticket_series';
     public const TICKET_NUMBER_KEY   = 'ticket_number';
     public const STATUS_KEY          = 'status';
+    public const TICKET_BARCODE_KEY  = 'tickbarcod';
     public const REFUND_KEY          = 'refund';
 
     protected ?string $surname = null;
@@ -49,6 +50,12 @@ class OrderTicketModel extends AbstractModel
     protected ?string $ticket_number = null;
     protected ?string $status = null;
     protected ?string $refund = null;
+    protected ?string $ticket_barcode = null;
+
+    /**
+     * @var int the number of the reserved seat in the transport size is the key
+     */
+    protected int $reservedSeatNumber;
 
     /**
      * @return string|null
@@ -56,6 +63,22 @@ class OrderTicketModel extends AbstractModel
     public function getStatus(): ?string
     {
         return $this->status;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTicketBarcode(): ?string
+    {
+        return $this->ticket_barcode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReservedSeatNumber(): int
+    {
+        return $this->reservedSeatNumber;
     }
 
     /**
@@ -215,6 +238,18 @@ class OrderTicketModel extends AbstractModel
     }
 
     /**
+     * @param string|null $ticket_barcode
+     *
+     * @return self
+     */
+    public function setTicketBarcode(?string $ticket_barcode): self
+    {
+        $this->ticket_barcode = $ticket_barcode;
+
+        return $this;
+    }
+
+    /**
      * @param float|null $amount
      *
      * @return self
@@ -234,6 +269,18 @@ class OrderTicketModel extends AbstractModel
     public function setGender(?GenderEnum $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * @param int $reservedSeatNumber
+     *
+     * @return self
+     */
+    public function setReservedSeatNumber(int $reservedSeatNumber): self
+    {
+        $this->reservedSeatNumber = $reservedSeatNumber;
 
         return $this;
     }
@@ -432,6 +479,19 @@ class OrderTicketModel extends AbstractModel
 
 
     /**
+     * @throws Exception
+     */
+    public static function fromArrayAndKey(string $key, array $response): static
+    {
+        $model = static::fromArray($response);
+
+        $model
+            ->setReservedSeatNumber((int)$key);
+
+        return $model;
+    }
+
+    /**
      * @inheritDoc
      * @throws Exception
      */
@@ -460,7 +520,8 @@ class OrderTicketModel extends AbstractModel
             ->setTicketSeries($response[self::TICKET_SERIES_KEY] ?? null)
             ->setTicketNumber($response[self::TICKET_NUMBER_KEY] ?? null)
             ->setStatus($response[self::STATUS_KEY] ?? null)
-            ->setRefund($response[self::REFUND_KEY] ?? null);
+            ->setRefund($response[self::REFUND_KEY] ?? null)
+            ->setTicketBarcode($response[self::TICKET_BARCODE_KEY] ?? null);
 
         return $model;
     }
@@ -491,6 +552,7 @@ class OrderTicketModel extends AbstractModel
                 self::TICKET_NUMBER_KEY   => $this->getTicketNumber(),
                 self::STATUS_KEY          => $this->getStatus(),
                 self::REFUND_KEY          => $this->getRefund(),
+                self::TICKET_BARCODE_KEY  => $this->getTicketBarcode(),
             ],
             function ($value) {
                 return $value !== null;
