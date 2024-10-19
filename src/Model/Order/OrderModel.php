@@ -5,6 +5,7 @@ namespace Onepix\BusrouteApiClient\Model\Order;
 use DateTime;
 use Exception;
 use Onepix\BusrouteApiClient\Model\AbstractModel;
+use Onepix\BusrouteApiClient\Model\Ticket\TicketModel;
 
 class OrderModel extends AbstractModel
 {
@@ -22,7 +23,7 @@ class OrderModel extends AbstractModel
     protected ?DateTime $dateOfPurchase = null;
 
     /**
-     * @var OrderTicketModel[]|null
+     * @var TicketModel[]|null
      */
     protected ?array $tickets = null;
 
@@ -164,7 +165,9 @@ class OrderModel extends AbstractModel
             )
             ->setTickets(
                 isset($response[self::TICKETS_KEY])
-                    ? array_map(fn($ticket) => OrderTicketModel::fromArray($ticket), $response[self::TICKETS_KEY])
+                    ? array_map(function ($key) use ($response) {
+                        return TicketModel::fromArrayAndKey($key, $response[self::TICKETS_KEY][$key]);
+                    }, array_keys($response[self::TICKETS_KEY]))
                     : null
             );
 
@@ -184,7 +187,13 @@ class OrderModel extends AbstractModel
                 self::TASS_ORDER_ID_KEY    => $this->getTassOrderId(),
                 self::DATE_OF_PURCHASE_KEY => $this->getDateOfPurchase()?->format('d.m.Y'),
                 self::TICKETS_KEY          => $this->getTickets()
-                    ? array_map(fn($ticket) => $ticket->toArray(), $this->getTickets())
+                    ? array_reduce($this->getTickets(), function ($carry, $ticket) {
+                        /**
+                         * @var TicketModel $ticket
+                         */
+                        $carry[$ticket->getReservedSeatNumber()] = $ticket->toArray();
+                        return $carry;
+                    }, [])
                     : null,
             ],
             function ($value) {

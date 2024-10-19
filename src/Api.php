@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Onepix\BusrouteApiClient\Service\OrderService;
 use Onepix\BusrouteApiClient\Service\RouteService;
 use Onepix\BusrouteApiClient\Service\StationService;
+use Onepix\BusrouteApiClient\Service\TicketService;
 
 class Api
 {
@@ -14,6 +15,7 @@ class Api
     private ?RouteService $routeService = null;
     private ?StationService $stationService = null;
     private ?OrderService $orderService = null;
+    private ?TicketService $ticketService = null;
 
     public function __construct(
         string $apiKey
@@ -78,5 +80,17 @@ class Api
         }
 
         return $this->orderService;
+    }
+
+    /**
+     * @return TicketService
+     */
+    public function ticket(): TicketService
+    {
+        if (is_null($this->routeService)) {
+            $this->ticketService = new TicketService($this->getClient());
+        }
+
+        return $this->ticketService;
     }
 }
