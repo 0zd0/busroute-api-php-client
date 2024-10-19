@@ -6,10 +6,11 @@ use Onepix\BusrouteApiClient\Enum\ActionEnum;
 
 abstract class AbstractResultModel extends AbstractModel
 {
-    public const RESULT_KEY  = 'results';
-    public const COUNTER_KEY = 'counter';
-    public const ACTION_KEY  = 'action';
-    public const ERROR_KEY   = 'error';
+    public const RESULT_KEY      = 'results';
+    public const COUNTER_KEY     = 'counter';
+    public const ACTION_KEY      = 'action';
+    public const ERROR_KEY       = 'error';
+    public const DESCRIPTION_KEY = 'description';
 
     /**
      * Model class in return
@@ -21,6 +22,7 @@ abstract class AbstractResultModel extends AbstractModel
     protected ?int $counter;
     protected ?ActionEnum $action;
     protected int $error;
+    protected ?string $description;
 
     /**
      * Single entity or null
@@ -58,6 +60,14 @@ abstract class AbstractResultModel extends AbstractModel
     public function getAction(): ?ActionEnum
     {
         return $this->action;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
     }
 
     /**
@@ -113,6 +123,18 @@ abstract class AbstractResultModel extends AbstractModel
     }
 
     /**
+     * @param string|null $description
+     *
+     * @return self
+     */
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
      * @param AbstractModel[]|null $multipleReturns
      *
      * @return self
@@ -162,7 +184,7 @@ abstract class AbstractResultModel extends AbstractModel
                 $return
             );
         } else {
-            $this->singleReturn = static::RETURN_MODEL::fromArray($return);
+            $this->singleReturn = $returnModel::fromArray($return);
         }
 
         return $this;
@@ -178,7 +200,8 @@ abstract class AbstractResultModel extends AbstractModel
         $model
             ->setAction(ActionEnum::tryFrom($response[self::ACTION_KEY ?? '']))
             ->setError($response[self::ERROR_KEY])
-            ->setCounter($response[self::COUNTER_KEY] ?? null);
+            ->setCounter($response[self::COUNTER_KEY] ?? null)
+            ->setDescription($response[self::DESCRIPTION_KEY] ?? null);
 
         if (isset($response[self::RESULT_KEY])) {
             $model->setReturn($response[self::RESULT_KEY]);
@@ -194,12 +217,13 @@ abstract class AbstractResultModel extends AbstractModel
     {
         return array_filter(
             [
-                self::RESULT_KEY  => ! self::ARRAY_MODELS
+                self::RESULT_KEY      => ! self::ARRAY_MODELS
                     ? $this->getSingleReturn()?->toArray()
                     : array_map(fn($item) => $item->toArray(), $this->getMultipleReturns() ?? []),
-                self::ERROR_KEY   => $this->getError(),
-                self::ACTION_KEY  => $this->getAction()?->value,
-                self::COUNTER_KEY => $this->getCounter(),
+                self::ERROR_KEY       => $this->getError(),
+                self::ACTION_KEY      => $this->getAction()?->value,
+                self::COUNTER_KEY     => $this->getCounter(),
+                self::DESCRIPTION_KEY => $this->getDescription(),
             ],
             function ($value) {
                 return $value !== null;
