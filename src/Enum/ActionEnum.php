@@ -12,4 +12,6 @@ enum ActionEnum: string
     case CONFIRM_PAYMENT                = 'confirmPayment';
     case REFUND_TICKETS                 = 'refundTickets';
     case GET_ORDER                      = 'getOrder';
+    case GET_ROUTE_SEATS                = 'getRouteSeats';
+    case GET_ROUTE_SEATS_OF_BUS         = 'getRouteSeatsofBus';
 }
