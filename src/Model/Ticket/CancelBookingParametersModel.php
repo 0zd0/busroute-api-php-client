@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient\Model\Ticket;
 
+use Onepix\BusrouteApiClient\Enum\ActionEnum;
 use Onepix\BusrouteApiClient\Model\AbstractModel;
 use Onepix\BusrouteApiClient\Model\RequestModelTrait;
 
@@ -14,6 +15,11 @@ class CancelBookingParametersModel extends AbstractModel
 
     protected ?string $transaction = null;
     protected ?string $id = null;
+
+    public function __construct()
+    {
+        $this->setAction(ActionEnum::CANCEL_BOOKING);
+    }
 
     /**
      * @return string|null
