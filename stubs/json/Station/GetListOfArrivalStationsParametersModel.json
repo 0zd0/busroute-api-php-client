@@ -1,0 +1,10 @@
+{
+    "all": {
+        "action": "getListOfArrivalStations",
+        "departure_station": "АС Новоясеневская"
+    },
+    "required": {
+        "action": "getListOfArrivalStations",
+        "departure_station": "АС Новоясеневская"
+    }
+}

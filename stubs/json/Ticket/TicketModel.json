@@ -1,0 +1,25 @@
+{
+    "all": {
+        "surname": "Иванов",
+        "firstname": "Василий",
+        "patronymic": "Петрович",
+        "document": "Паспорт РФ",
+        "document_series": "4511",
+        "document_number": "232425",
+        "date_of_birth": "01.02.2008",
+        "nationality": "РОССИЯ",
+        "gender": "male",
+        "ticket_type": "child",
+        "tariff": 125,
+        "comission": 0,
+        "service_charge": 0,
+        "agent_charge": 8.75,
+        "amount": 133.75,
+        "ticket_series": "011777267797",
+        "ticket_number": "319880017",
+        "tickbarcod": "772605009503",
+        "status": "Возврат",
+        "refund": "267.5"
+    },
+    "required": {}
+}

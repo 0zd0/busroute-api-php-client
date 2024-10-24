@@ -19,10 +19,10 @@ abstract class AbstractResultModel extends AbstractModel
 
     public const ARRAY_MODELS = true;
 
-    protected ?int $counter;
-    protected ?ActionEnum $action;
+    protected ?int $counter = null;
+    protected ActionEnum $action;
     protected int $error;
-    protected ?string $description;
+    protected ?string $description = null;
 
     /**
      * Single entity or null
@@ -55,9 +55,9 @@ abstract class AbstractResultModel extends AbstractModel
     }
 
     /**
-     * @return ActionEnum|null
+     * @return ActionEnum
      */
-    public function getAction(): ?ActionEnum
+    public function getAction(): ActionEnum
     {
         return $this->action;
     }
@@ -87,11 +87,11 @@ abstract class AbstractResultModel extends AbstractModel
     }
 
     /**
-     * @param ActionEnum|null $action
+     * @param ActionEnum $action
      *
      * @return self
      */
-    public function setAction(?ActionEnum $action): self
+    public function setAction(ActionEnum $action): self
     {
         $this->action = $action;
 
@@ -198,7 +198,7 @@ abstract class AbstractResultModel extends AbstractModel
         $model = new static();
 
         $model
-            ->setAction(ActionEnum::tryFrom($response[self::ACTION_KEY ?? '']))
+            ->setAction(ActionEnum::from($response[self::ACTION_KEY]))
             ->setError($response[self::ERROR_KEY])
             ->setCounter($response[self::COUNTER_KEY] ?? null)
             ->setDescription($response[self::DESCRIPTION_KEY] ?? null);
