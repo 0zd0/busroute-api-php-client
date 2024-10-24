@@ -3,21 +3,26 @@
 namespace Onepix\BusrouteApiClient\Model\Ticket;
 
 use DateTime;
+use Exception;
+use Onepix\BusrouteApiClient\Enum\ActionEnum;
 use Onepix\BusrouteApiClient\Enum\GenderEnum;
 use Onepix\BusrouteApiClient\Model\AbstractModel;
+use Onepix\BusrouteApiClient\Model\RequestModelTrait;
 
 class BookTicketsParametersTicketModel extends AbstractModel
 {
-    public const SURNAME_KEY          = 'surname';
-    public const FIRSTNAME_KEY        = 'firstname';
-    public const PATRONYMIC_KEY       = 'patronymic';
-    public const DOCUMENT_KEY         = 'document';
-    public const DOCUMENT_SERIES_KEY  = 'document_series';
-    public const DOCUMENT_NUMBER_KEY  = 'document_number';
-    public const DATE_OF_BIRTH_KEY    = 'date_of_birth';
-    public const NATIONALITY_KEY      = 'nationality';
-    public const GENDER_KEY           = 'gender';
-    public const PHONE_KEY            = 'phone';
+    use RequestModelTrait;
+
+    public const SURNAME_KEY         = 'surname';
+    public const FIRSTNAME_KEY       = 'firstname';
+    public const PATRONYMIC_KEY      = 'patronymic';
+    public const DOCUMENT_KEY        = 'document';
+    public const DOCUMENT_SERIES_KEY = 'document_series';
+    public const DOCUMENT_NUMBER_KEY = 'document_number';
+    public const DATE_OF_BIRTH_KEY   = 'date_of_birth';
+    public const NATIONALITY_KEY     = 'nationality';
+    public const GENDER_KEY          = 'gender';
+    public const PHONE_KEY           = 'phone';
 
     protected string $surname;
     protected string $firstname;
@@ -29,6 +34,11 @@ class BookTicketsParametersTicketModel extends AbstractModel
     protected string $nationality;
     protected GenderEnum $gender;
     protected string $phone;
+
+    public function __construct()
+    {
+        $this->setAction(ActionEnum::BOOK_TICKETS);
+    }
 
     /**
      * @return string
@@ -231,11 +241,11 @@ class BookTicketsParametersTicketModel extends AbstractModel
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static function fromArray(array $response): static
     {
-        $model = new static();
+        $model = static::fromArrayRequest($response);
 
         $model
             ->setSurname($response[self::SURNAME_KEY])
@@ -255,18 +265,21 @@ class BookTicketsParametersTicketModel extends AbstractModel
     public function toArray(): array
     {
         return array_filter(
-            [
-                self::SURNAME_KEY        => $this->getSurname(),
-                self::FIRSTNAME_KEY      => $this->getFirstname(),
-                self::PATRONYMIC_KEY     => $this->getPatronymic(),
-                self::DOCUMENT_KEY       => $this->getDocument(),
-                self::DOCUMENT_SERIES_KEY => $this->getDocumentSeries(),
-                self::DOCUMENT_NUMBER_KEY => $this->getDocumentNumber(),
-                self::DATE_OF_BIRTH_KEY  => $this->getDateOfBirth()->format('d.m.Y'),
-                self::NATIONALITY_KEY    => $this->getNationality(),
-                self::GENDER_KEY         => $this->getGender(),
-                self::PHONE_KEY          => $this->getPhone(),
-            ],
+            array_merge(
+                [
+                    self::SURNAME_KEY         => $this->getSurname(),
+                    self::FIRSTNAME_KEY       => $this->getFirstname(),
+                    self::PATRONYMIC_KEY      => $this->getPatronymic(),
+                    self::DOCUMENT_KEY        => $this->getDocument(),
+                    self::DOCUMENT_SERIES_KEY => $this->getDocumentSeries(),
+                    self::DOCUMENT_NUMBER_KEY => $this->getDocumentNumber(),
+                    self::DATE_OF_BIRTH_KEY   => $this->getDateOfBirth()->format('d.m.Y'),
+                    self::NATIONALITY_KEY     => $this->getNationality(),
+                    self::GENDER_KEY          => $this->getGender(),
+                    self::PHONE_KEY           => $this->getPhone(),
+                ],
+                $this->toArrayRequestData()
+            ),
             function ($value) {
                 return $value !== null;
             }

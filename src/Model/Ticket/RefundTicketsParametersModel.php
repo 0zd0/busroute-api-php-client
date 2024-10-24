@@ -21,6 +21,11 @@ class RefundTicketsParametersModel extends AbstractModel
      */
     protected array $seats;
 
+    public function __construct()
+    {
+        $this->setAction(ActionEnum::REFUND_TICKETS);
+    }
+
     /**
      * @return string
      */
@@ -59,11 +64,6 @@ class RefundTicketsParametersModel extends AbstractModel
         $this->seats = $seats;
 
         return $this;
-    }
-
-    public function __construct()
-    {
-        $this->setAction(ActionEnum::REFUND_TICKETS);
     }
 
     /**
