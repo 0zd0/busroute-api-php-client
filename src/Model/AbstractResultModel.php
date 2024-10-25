@@ -215,11 +215,15 @@ abstract class AbstractResultModel extends AbstractModel
      */
     public function toArray(): array
     {
+        if (static::ARRAY_MODELS) {
+            $result = array_map(fn($item) => $item->toArray(), $this->getMultipleReturns() ?? []);
+        } else {
+            $result = $this->getSingleReturn()?->toArray() ?? null;
+        }
+
         return array_filter(
             [
-                self::RESULT_KEY      => ! self::ARRAY_MODELS
-                    ? $this->getSingleReturn()?->toArray()
-                    : array_map(fn($item) => $item->toArray(), $this->getMultipleReturns() ?? []),
+                self::RESULT_KEY      => $result,
                 self::ERROR_KEY       => $this->getError(),
                 self::ACTION_KEY      => $this->getAction()?->value,
                 self::COUNTER_KEY     => $this->getCounter(),

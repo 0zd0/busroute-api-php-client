@@ -15,6 +15,10 @@ class BookTicketsModel extends AbstractModel
     protected ?string $transaction = null;
     protected ?string $id = null;
     protected ?float $amount = null;
+
+    /**
+     * @var TicketModel[]|null
+     */
     protected ?array $tickets = null;
 
     /**
@@ -106,9 +110,9 @@ class BookTicketsModel extends AbstractModel
         $model = new static();
 
         $model
-            ->setTransaction($response[self::TRANSACTION_KEY])
-            ->setId($response[self::ID_KEY])
-            ->setAmount($response[self::AMOUNT_KEY])
+            ->setTransaction($response[self::TRANSACTION_KEY] ?? null)
+            ->setId($response[self::ID_KEY] ?? null)
+            ->setAmount($response[self::AMOUNT_KEY] ?? null)
             ->setTickets(
                 isset($response[self::TICKETS_KEY])
                     ? array_map(function ($key) use ($response) {

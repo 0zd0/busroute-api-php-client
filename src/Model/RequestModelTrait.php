@@ -32,13 +32,13 @@ trait RequestModelTrait
     {
         $model = new static();
 
-        return $model->setAction($response['action']);
+        return $model->setAction(ActionEnum::from($response['action']));
     }
 
     public function toArrayRequestData(): array
     {
         return [
-            'action' => $this->getAction()
+            'action' => $this->getAction()->value
         ];
     }
 }

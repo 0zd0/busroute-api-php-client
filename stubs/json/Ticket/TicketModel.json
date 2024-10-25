@@ -19,7 +19,8 @@
         "ticket_number": "319880017",
         "tickbarcod": "772605009503",
         "status": "Возврат",
-        "refund": "267.5"
+        "refund": "267.5",
+        "phone": "89261111111"
     },
     "required": {}
 }

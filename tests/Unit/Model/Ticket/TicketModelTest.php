@@ -41,9 +41,10 @@ class TicketModelTest extends TestCase
         $this::assertNull($model->getTicketBarcode());
         $this::assertNull($model->getStatus());
         $this::assertNull($model->getRefund());
+        $this::assertNull($model->getPhone());
 
         $toApi = $model->toArray();
-        $this::assertEqualsCanonicalizing(sort($toApi), sort($json));
+        $this::assertArraysAreEqual($json, $toApi);
     }
 
     /**
@@ -73,8 +74,9 @@ class TicketModelTest extends TestCase
         $this::assertSame("772605009503", $model->getTicketBarcode());
         $this::assertSame("Возврат", $model->getStatus());
         $this::assertSame("267.5", $model->getRefund());
+        $this::assertSame("89261111111", $model->getPhone());
 
         $toApi = $model->toArray();
-        $this::assertEqualsCanonicalizing(sort($toApi), sort($json));
+        $this::assertArraysAreEqual($json, $toApi);
     }
 }
