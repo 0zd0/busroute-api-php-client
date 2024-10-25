@@ -217,6 +217,9 @@ abstract class AbstractResultModel extends AbstractModel
     {
         if (static::ARRAY_MODELS) {
             $result = array_map(fn($item) => $item->toArray(), $this->getMultipleReturns() ?? []);
+            if (empty($result)) {
+                $result = null;
+            }
         } else {
             $result = $this->getSingleReturn()?->toArray() ?? null;
         }

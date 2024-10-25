@@ -7,6 +7,7 @@ use Onepix\BusrouteApiClient\Model\AbstractResultModel;
 class GetOrderResponseModel extends AbstractResultModel
 {
     public const RETURN_MODEL = OrderModel::class;
+    public const ARRAY_MODELS = false;
 
     /**
      * @return OrderModel|null
