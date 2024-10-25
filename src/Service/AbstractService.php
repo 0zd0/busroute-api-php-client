@@ -4,22 +4,22 @@ namespace Onepix\BusrouteApiClient\Service;
 
 use Onepix\BusrouteApiClient\Constants;
 use Onepix\BusrouteApiClient\Enum\RouteEnum;
-use Onepix\BusrouteApiClient\HttpClient;
+use Onepix\BusrouteApiClient\ApiClient;
 
 abstract class AbstractService
 {
-    protected HttpClient $client;
+    protected ApiClient $client;
 
     public function __construct(
-        HttpClient $client
+        ApiClient $client
     ) {
         $this->client = $client;
     }
 
     /**
-     * @return HttpClient
+     * @return ApiClient
      */
-    public function getClient(): HttpClient
+    public function getClient(): ApiClient
     {
         return $this->client;
     }

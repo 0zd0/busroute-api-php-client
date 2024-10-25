@@ -8,9 +8,9 @@ use Onepix\BusrouteApiClient\Model\AbstractModel;
 class BookTicketsModel extends AbstractModel
 {
     public const TRANSACTION_KEY = 'transaction';
-    public const ID_KEY = 'id';
-    public const AMOUNT_KEY = 'amount';
-    public const TICKETS_KEY = 'tickets';
+    public const ID_KEY          = 'id';
+    public const AMOUNT_KEY      = 'amount';
+    public const TICKETS_KEY     = 'tickets';
 
     protected ?string $transaction = null;
     protected ?string $id = null;
@@ -112,10 +112,11 @@ class BookTicketsModel extends AbstractModel
             ->setTickets(
                 isset($response[self::TICKETS_KEY])
                     ? array_map(function ($key) use ($response) {
-                    return TicketModel::fromArrayAndKey($key, $response[self::TICKETS_KEY][$key]);
-                }, array_keys($response[self::TICKETS_KEY]))
+                        return TicketModel::fromArrayAndKey($key, $response[self::TICKETS_KEY][$key]);
+                    }, array_keys($response[self::TICKETS_KEY]))
                     : null
             );
+
         return $model;
     }
 
@@ -126,15 +127,16 @@ class BookTicketsModel extends AbstractModel
     {
         return array_filter(
             [
-                self::TRANSACTION_KEY      => $this->getTransaction(),
-                self::ID_KEY               => $this->getId(),
-                self::AMOUNT_KEY           => $this->getAmount(),
-                self::TICKETS_KEY          => $this->getTickets()
+                self::TRANSACTION_KEY => $this->getTransaction(),
+                self::ID_KEY          => $this->getId(),
+                self::AMOUNT_KEY      => $this->getAmount(),
+                self::TICKETS_KEY     => $this->getTickets()
                     ? array_reduce($this->getTickets(), function ($carry, $ticket) {
                         /**
                          * @var TicketModel $ticket
                          */
                         $carry[$ticket->getReservedSeatNumber()] = $ticket->toArray();
+
                         return $carry;
                     }, [])
                     : null,
