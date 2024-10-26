@@ -2,9 +2,9 @@
 
 namespace Onepix\BusrouteApiClient\Service;
 
-use Onepix\BusrouteApiClient\Constants;
-use Onepix\BusrouteApiClient\Enum\RouteEnum;
 use Onepix\BusrouteApiClient\ApiClient;
+use Onepix\BusrouteApiClient\Constants;
+use Onepix\BusrouteApiClient\Enum\ApiRouteEnum;
 
 abstract class AbstractService
 {
@@ -25,8 +25,8 @@ abstract class AbstractService
     }
 
     public static function buildRoute(
-        RouteEnum $route,
-        string $version = Constants::VERSION_API
+        ApiRouteEnum $route,
+        string       $version = Constants::VERSION_API
     ): string {
         return '/v' . $version . '/' . $route->value;
     }

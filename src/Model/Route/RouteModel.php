@@ -4,6 +4,8 @@ namespace Onepix\BusrouteApiClient\Model\Route;
 
 use DateTime;
 use Exception;
+use Onepix\BusrouteApiClient\Enum\RouteSaleEnum;
+use Onepix\BusrouteApiClient\Enum\RouteStatusEnum;
 use Onepix\BusrouteApiClient\Model\AbstractModel;
 
 class RouteModel extends AbstractModel
@@ -41,13 +43,13 @@ class RouteModel extends AbstractModel
     private ?string $busModel = null;
     private ?string $busCarrier = null;
     private ?int $busCapacity = null;
-    private ?int $sale = null;
-    private ?int $status = null;
+    private ?RouteSaleEnum $sale = null;
+    private ?RouteStatusEnum $status = null;
 
     /**
-     * @return int|null
+     * @return RouteStatusEnum|null
      */
-    public function getStatus(): ?int
+    public function getStatus(): ?RouteStatusEnum
     {
         return $this->status;
     }
@@ -173,19 +175,19 @@ class RouteModel extends AbstractModel
     }
 
     /**
-     * @return int|null
+     * @return RouteSaleEnum|null
      */
-    public function getSale(): ?int
+    public function getSale(): ?RouteSaleEnum
     {
         return $this->sale;
     }
 
     /**
-     * @param int|null $status
+     * @param RouteStatusEnum|null $status
      *
      * @return self
      */
-    public function setStatus(?int $status): self
+    public function setStatus(?RouteStatusEnum $status): self
     {
         $this->status = $status;
 
@@ -373,11 +375,11 @@ class RouteModel extends AbstractModel
     }
 
     /**
-     * @param int|null $sale
+     * @param RouteSaleEnum|null $sale
      *
      * @return self
      */
-    public function setSale(?int $sale): self
+    public function setSale(?RouteSaleEnum $sale): self
     {
         $this->sale = $sale;
 
@@ -416,8 +418,8 @@ class RouteModel extends AbstractModel
             ->setBusModel($response[self::BUS_MODEL_KEY] ?? null)
             ->setBusCarrier($response[self::BUS_CARRIER_KEY] ?? null)
             ->setBusCapacity($response[self::BUS_CAPACITY_KEY] ?? null)
-            ->setSale($response[self::SALE_KEY] ?? null)
-            ->setStatus($response[self::STATUS_KEY] ?? null);
+            ->setSale(RouteSaleEnum::tryFrom($response[self::SALE_KEY] ?? -1))
+            ->setStatus(RouteStatusEnum::tryFrom($response[self::STATUS_KEY] ?? -1));
 
         return $model;
     }
@@ -429,23 +431,23 @@ class RouteModel extends AbstractModel
     {
         return array_filter(
             [
-                self::ROUTE_START_STATION_KEY         => $this->getRouteStartStation(),
-                self::ROUTE_END_STATION_KEY     => $this->getRouteEndStation(),
-                self::DEPARTURE_STATION_KEY => $this->getDepartureStation(),
-                self::ARRIVAL_STATION_KEY   => $this->getArrivalStation(),
-                self::DEPARTURE_DATE_KEY         => $this->getDepartureDate()?->format('d.m.Y'),
+                self::ROUTE_START_STATION_KEY => $this->getRouteStartStation(),
+                self::ROUTE_END_STATION_KEY   => $this->getRouteEndStation(),
+                self::DEPARTURE_STATION_KEY   => $this->getDepartureStation(),
+                self::ARRIVAL_STATION_KEY     => $this->getArrivalStation(),
+                self::DEPARTURE_DATE_KEY      => $this->getDepartureDate()?->format('d.m.Y'),
                 self::DEPARTURE_TIME_KEY      => $this->getDepartureTime(),
-                self::ARRIVAL_DATE_KEY      => $this->getArrivalDate()?->format('d.m.Y'),
-                self::ARRIVAL_TIME_KEY      => $this->getArrivalTime(),
-                self::ON_THE_WAY_KEY      => $this->getOnTheWay(),
-                self::ADULT_KEY      => $this->getAdult()?->toArray(),
-                self::CHILD_KEY      => $this->getChild()?->toArray(),
-                self::AVAILABLE_SEATS_KEY      => $this->getAvailableSeats(),
-                self::BUS_MODEL_KEY      => $this->getBusModel(),
-                self::BUS_CARRIER_KEY      => $this->getBusCarrier(),
-                self::BUS_CAPACITY_KEY      => $this->getBusCapacity(),
-                self::SALE_KEY      => $this->getSale(),
-                self::STATUS_KEY      => $this->getStatus(),
+                self::ARRIVAL_DATE_KEY        => $this->getArrivalDate()?->format('d.m.Y'),
+                self::ARRIVAL_TIME_KEY        => $this->getArrivalTime(),
+                self::ON_THE_WAY_KEY          => $this->getOnTheWay(),
+                self::ADULT_KEY               => $this->getAdult()?->toArray(),
+                self::CHILD_KEY               => $this->getChild()?->toArray(),
+                self::AVAILABLE_SEATS_KEY     => $this->getAvailableSeats(),
+                self::BUS_MODEL_KEY           => $this->getBusModel(),
+                self::BUS_CARRIER_KEY         => $this->getBusCarrier(),
+                self::BUS_CAPACITY_KEY        => $this->getBusCapacity(),
+                self::SALE_KEY                => $this->getSale()?->value,
+                self::STATUS_KEY              => $this->getStatus()?->value,
             ],
             function ($value) {
                 return $value !== null;
