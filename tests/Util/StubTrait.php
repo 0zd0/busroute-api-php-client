@@ -12,7 +12,7 @@ trait StubTrait
     /**
      * @throws Exception
      */
-    public static function getStubJsonModelWithRequiredFields(string $name): array
+    public static function getStubJsonModelWithRequiredFields(string $name): array|string
     {
         return self::getJsonFile($name, self::$jsonRequiredKey);
     }
@@ -20,7 +20,7 @@ trait StubTrait
     /**
      * @throws Exception
      */
-    public static function getStubJsonModelWithAllFields(string $name): array
+    public static function getStubJsonModelWithAllFields(string $name): array|string
     {
         return self::getJsonFile($name, self::$jsonAllKey);
     }
@@ -28,7 +28,7 @@ trait StubTrait
     /**
      * @throws Exception
      */
-    public static function getJsonFile(string $name, string $prefix): array
+    public static function getJsonFile(string $name, string $prefix): array|string
     {
         $path = __DIR__ . "/../../stubs/json/$name.json";
 

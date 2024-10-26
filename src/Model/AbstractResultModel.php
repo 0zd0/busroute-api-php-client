@@ -173,7 +173,7 @@ abstract class AbstractResultModel extends AbstractModel
         if (static::ARRAY_MODELS) {
             $this->multipleReturns = array_map(
                 function ($item) use ($returnModel) {
-                    if (is_string($item)) {
+                    if ($returnModel::IS_ONE_FIELD) {
                         return $returnModel::fromString($item);
                     } elseif (is_array($item)) {
                         return $returnModel::fromArray($item);
@@ -216,7 +216,7 @@ abstract class AbstractResultModel extends AbstractModel
     public function toArray(): array
     {
         if (static::ARRAY_MODELS) {
-            $result = array_map(fn($item) => $item->toArray(), $this->getMultipleReturns() ?? []);
+            $result = array_map(fn($item) => $item::IS_ONE_FIELD ? $item->toString() : $item->toArray(), $this->getMultipleReturns() ?? []);
             if (empty($result)) {
                 $result = null;
             }

@@ -4,6 +4,8 @@ namespace Onepix\BusrouteApiClient\Model;
 
 abstract class AbstractModel
 {
+    public const IS_ONE_FIELD = false;
+
     /**
      * Convert to class from json
      *
@@ -24,6 +26,11 @@ abstract class AbstractModel
      * @return array
      */
     abstract public function toArray(): array;
+
+    public function toString(): string
+    {
+        return '';
+    }
 
     public static function getClassName(): string
     {

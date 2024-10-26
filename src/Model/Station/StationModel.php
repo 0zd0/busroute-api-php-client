@@ -6,6 +6,8 @@ use Onepix\BusrouteApiClient\Model\AbstractModel;
 
 class StationModel extends AbstractModel
 {
+    public const IS_ONE_FIELD = true;
+
     protected string $name;
 
     /**
@@ -35,6 +37,11 @@ class StationModel extends AbstractModel
         $model->setName($response);
 
         return $model;
+    }
+
+    public function toString(): string
+    {
+        return $this->getName();
     }
 
     public static function fromArray(array $response): static
