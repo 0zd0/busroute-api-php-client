@@ -1,4 +1,10 @@
 /vendor/
-composer.lock
+#composer.lock
 
-.idea
+/.idea/*
+!/.idea/runConfigurations
+
+config.dev.toml
+.phpunit.result.cache
+
+coverage/*
