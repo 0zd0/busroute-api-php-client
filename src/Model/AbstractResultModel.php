@@ -194,7 +194,7 @@ abstract class AbstractResultModel extends AbstractModel
 
         return $this;
     }
-    
+
     /**
      * @inheritDoc
      * @throws Exception

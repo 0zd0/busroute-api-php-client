@@ -26,7 +26,7 @@ abstract class AbstractService
 
     public static function buildRoute(
         ApiRouteEnum $route,
-        string       $version = Constants::VERSION_API
+        string $version = Constants::VERSION_API
     ): string {
         return '/v' . $version . '/' . $route->value;
     }

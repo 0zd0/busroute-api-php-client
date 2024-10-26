@@ -19,5 +19,10 @@
         "phpunit/phpunit": "^10.5.37",
         "yosymfony/toml": "^v1.0.4",
         "spatie/phpunit-snapshot-assertions": "^5.1.6"
+    },
+    "scripts": {
+        "phpcs": "php ./vendor/bin/phpcs ./src ./tests --standard=PSR12 --cache -p -s --colors --report=summary --exclude=Generic.Files.LineLength",
+        "phpcs:full": "php ./vendor/bin/phpcs ./src ./tests --standard=PSR12 --cache -p -s --colors --exclude=Generic.Files.LineLength",
+        "phpcs:fix": "php ./vendor/bin/phpcbf ./src ./tests --standard=PSR12 --cache -p -s --colors --exclude=Generic.Files.LineLength"
     }
 }
