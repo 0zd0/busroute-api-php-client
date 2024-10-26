@@ -3,7 +3,7 @@
 namespace Onepix\BusrouteApiClient\Service;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Onepix\BusrouteApiClient\Enum\RouteEnum;
+use Onepix\BusrouteApiClient\Enum\ApiRouteEnum;
 use Onepix\BusrouteApiClient\Model\Station\GetListOfArrivalStationsParametersModel;
 use Onepix\BusrouteApiClient\Model\Station\GetListOfArrivalStationsResponseModel;
 use Onepix\BusrouteApiClient\Model\Station\GetListOfDepartureStationsParametersModel;
@@ -20,7 +20,7 @@ class StationService extends AbstractService
      */
     public function getListOfDepartureStations(GetListOfDepartureStationsParametersModel $data): ?array
     {
-        $url = $this::buildRoute(RouteEnum::Default);
+        $url = $this::buildRoute(ApiRouteEnum::Default);
 
         $response = $this->getClient()->post(
             $url,
@@ -38,7 +38,7 @@ class StationService extends AbstractService
      */
     public function getListOfArrivalStations(GetListOfArrivalStationsParametersModel $data): ?array
     {
-        $url = $this::buildRoute(RouteEnum::Default);
+        $url = $this::buildRoute(ApiRouteEnum::Default);
 
         $response = $this->getClient()->post(
             $url,

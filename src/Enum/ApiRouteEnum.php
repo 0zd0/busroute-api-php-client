@@ -2,7 +2,7 @@
 
 namespace Onepix\BusrouteApiClient\Enum;
 
-enum RouteEnum: string
+enum ApiRouteEnum: string
 {
     case Default = 'json';
 }

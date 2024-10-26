@@ -30,6 +30,7 @@ class TicketModel extends AbstractModel
     public const STATUS_KEY          = 'status';
     public const TICKET_BARCODE_KEY  = 'tickbarcod';
     public const REFUND_KEY          = 'refund';
+    public const PHONE_KEY           = 'phone';
 
     protected ?string $surname = null;
     protected ?string $firstname = null;
@@ -51,6 +52,7 @@ class TicketModel extends AbstractModel
     protected ?string $status = null;
     protected ?string $refund = null;
     protected ?string $ticket_barcode = null;
+    protected ?string $phone = null;
 
     /**
      * @var int the number of the reserved seat in the transport size is the key
@@ -63,6 +65,14 @@ class TicketModel extends AbstractModel
     public function getStatus(): ?string
     {
         return $this->status;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
     }
 
     /**
@@ -257,6 +267,18 @@ class TicketModel extends AbstractModel
     public function setAmount(?float $amount): self
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $phone
+     *
+     * @return self
+     */
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
@@ -521,6 +543,7 @@ class TicketModel extends AbstractModel
             ->setTicketNumber($response[self::TICKET_NUMBER_KEY] ?? null)
             ->setStatus($response[self::STATUS_KEY] ?? null)
             ->setRefund($response[self::REFUND_KEY] ?? null)
+            ->setPhone($response[self::PHONE_KEY] ?? null)
             ->setTicketBarcode($response[self::TICKET_BARCODE_KEY] ?? null);
 
         return $model;
@@ -553,6 +576,7 @@ class TicketModel extends AbstractModel
                 self::STATUS_KEY          => $this->getStatus(),
                 self::REFUND_KEY          => $this->getRefund(),
                 self::TICKET_BARCODE_KEY  => $this->getTicketBarcode(),
+                self::PHONE_KEY           => $this->getPhone(),
             ],
             function ($value) {
                 return $value !== null;

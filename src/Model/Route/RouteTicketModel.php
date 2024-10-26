@@ -13,92 +13,67 @@ class RouteTicketModel extends AbstractModel
     public const AMOUNT_KEY         = 'amount';
     public const INSURANCE_KEY      = 'insurance';
 
-    // Поля для данных
-    private ?int $tariff = null;
-    private ?float $commission = null;
-    private ?float $serviceCharge = null;
-    private ?float $agentCharge = null;
-    private ?float $amount = null;
-    private ?float $insurance = null;
+    private int|float|null $tariff = null;
+    private int|float|null $commission = null;
+    private int|float|null $serviceCharge = null;
+    private int|float|null $agentCharge = null;
+    private int|float|null $amount = null;
+    private int|float|null $insurance = null;
 
     /**
-     * @return float|null
+     * @return float|int|null
      */
-    public function getInsurance(): ?float
-    {
-        return $this->insurance;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getAgentCharge(): ?float
-    {
-        return $this->agentCharge;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getAmount(): ?float
+    public function getAmount(): float|int|null
     {
         return $this->amount;
     }
 
     /**
-     * @return float|null
+     * @return float|int|null
      */
-    public function getCommission(): ?float
+    public function getAgentCharge(): float|int|null
     {
-        return $this->commission;
+        return $this->agentCharge;
     }
 
     /**
-     * @return float|null
+     * @return float|int|null
      */
-    public function getServiceCharge(): ?float
+    public function getServiceCharge(): float|int|null
     {
         return $this->serviceCharge;
     }
 
     /**
-     * @return int|null
+     * @return float|int|null
      */
-    public function getTariff(): ?int
+    public function getTariff(): float|int|null
     {
         return $this->tariff;
     }
 
     /**
-     * @param float|null $insurance
-     *
-     * @return self
+     * @return float|int|null
      */
-    public function setInsurance(?float $insurance): self
+    public function getCommission(): float|int|null
     {
-        $this->insurance = $insurance;
-
-        return $this;
+        return $this->commission;
     }
 
     /**
-     * @param float|null $agentCharge
-     *
-     * @return self
+     * @return float|int|null
      */
-    public function setAgentCharge(?float $agentCharge): self
+    public function getInsurance(): float|int|null
     {
-        $this->agentCharge = $agentCharge;
-
-        return $this;
+        return $this->insurance;
     }
 
     /**
-     * @param float|null $amount
+     * @param float|int|null $amount
      *
      * @return self
      */
-    public function setAmount(?float $amount): self
+    public function setAmount(float|int|null $amount): self
     {
         $this->amount = $amount;
 
@@ -106,23 +81,23 @@ class RouteTicketModel extends AbstractModel
     }
 
     /**
-     * @param float|null $commission
+     * @param float|int|null $tariff
      *
      * @return self
      */
-    public function setCommission(?float $commission): self
+    public function setTariff(float|int|null $tariff): self
     {
-        $this->commission = $commission;
+        $this->tariff = $tariff;
 
         return $this;
     }
 
     /**
-     * @param float|null $serviceCharge
+     * @param float|int|null $serviceCharge
      *
      * @return self
      */
-    public function setServiceCharge(?float $serviceCharge): self
+    public function setServiceCharge(float|int|null $serviceCharge): self
     {
         $this->serviceCharge = $serviceCharge;
 
@@ -130,13 +105,37 @@ class RouteTicketModel extends AbstractModel
     }
 
     /**
-     * @param int|null $tariff
+     * @param float|int|null $commission
      *
      * @return self
      */
-    public function setTariff(?int $tariff): self
+    public function setCommission(float|int|null $commission): self
     {
-        $this->tariff = $tariff;
+        $this->commission = $commission;
+
+        return $this;
+    }
+
+    /**
+     * @param float|int|null $agentCharge
+     *
+     * @return self
+     */
+    public function setAgentCharge(float|int|null $agentCharge): self
+    {
+        $this->agentCharge = $agentCharge;
+
+        return $this;
+    }
+
+    /**
+     * @param float|int|null $insurance
+     *
+     * @return self
+     */
+    public function setInsurance(float|int|null $insurance): self
+    {
+        $this->insurance = $insurance;
 
         return $this;
     }

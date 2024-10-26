@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient\Model;
 
+use Exception;
 use Onepix\BusrouteApiClient\Enum\ActionEnum;
 
 abstract class AbstractResultModel extends AbstractModel
@@ -19,10 +20,10 @@ abstract class AbstractResultModel extends AbstractModel
 
     public const ARRAY_MODELS = true;
 
-    protected ?int $counter;
-    protected ?ActionEnum $action;
+    protected ?int $counter = null;
+    protected ActionEnum $action;
     protected int $error;
-    protected ?string $description;
+    protected ?string $description = null;
 
     /**
      * Single entity or null
@@ -55,9 +56,9 @@ abstract class AbstractResultModel extends AbstractModel
     }
 
     /**
-     * @return ActionEnum|null
+     * @return ActionEnum
      */
-    public function getAction(): ?ActionEnum
+    public function getAction(): ActionEnum
     {
         return $this->action;
     }
@@ -87,11 +88,11 @@ abstract class AbstractResultModel extends AbstractModel
     }
 
     /**
-     * @param ActionEnum|null $action
+     * @param ActionEnum $action
      *
      * @return self
      */
-    public function setAction(?ActionEnum $action): self
+    public function setAction(ActionEnum $action): self
     {
         $this->action = $action;
 
@@ -162,43 +163,48 @@ abstract class AbstractResultModel extends AbstractModel
      * @param array $return
      *
      * @return AbstractModel
+     * @throws Exception
      */
     public function setReturn(array $return): AbstractModel
     {
+        if (static::RETURN_MODEL === '') {
+            return $this;
+        }
         /**
          * @var AbstractModel $returnModel
          */
         $returnModel = static::RETURN_MODEL;
 
         if (static::ARRAY_MODELS) {
-            $this->multipleReturns = array_map(
+            $this->setMultipleReturns(array_map(
                 function ($item) use ($returnModel) {
-                    if (is_string($item)) {
+                    if ($returnModel::IS_ONE_FIELD) {
                         return $returnModel::fromString($item);
                     } elseif (is_array($item)) {
                         return $returnModel::fromArray($item);
                     }
 
-                    return $item;
+                    throw new Exception("Invalid item type");
                 },
                 $return
-            );
+            ));
         } else {
-            $this->singleReturn = $returnModel::fromArray($return);
+            $this->setSingleReturn($returnModel::fromArray($return));
         }
 
         return $this;
     }
-
+    
     /**
      * @inheritDoc
+     * @throws Exception
      */
     public static function fromArray(array $response): static
     {
         $model = new static();
 
         $model
-            ->setAction(ActionEnum::tryFrom($response[self::ACTION_KEY ?? '']))
+            ->setAction(ActionEnum::from($response[self::ACTION_KEY]))
             ->setError($response[self::ERROR_KEY])
             ->setCounter($response[self::COUNTER_KEY] ?? null)
             ->setDescription($response[self::DESCRIPTION_KEY] ?? null);
@@ -215,11 +221,18 @@ abstract class AbstractResultModel extends AbstractModel
      */
     public function toArray(): array
     {
+        if (static::ARRAY_MODELS) {
+            $result = array_map(fn($item) => $item::IS_ONE_FIELD ? $item->toString() : $item->toArray(), $this->getMultipleReturns() ?? []);
+            if (empty($result)) {
+                $result = null;
+            }
+        } else {
+            $result = $this->getSingleReturn()?->toArray() ?? null;
+        }
+
         return array_filter(
             [
-                self::RESULT_KEY      => ! self::ARRAY_MODELS
-                    ? $this->getSingleReturn()?->toArray()
-                    : array_map(fn($item) => $item->toArray(), $this->getMultipleReturns() ?? []),
+                self::RESULT_KEY      => $result,
                 self::ERROR_KEY       => $this->getError(),
                 self::ACTION_KEY      => $this->getAction()?->value,
                 self::COUNTER_KEY     => $this->getCounter(),

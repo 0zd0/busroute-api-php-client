@@ -1,0 +1,10 @@
+{
+    "all": {
+        "action": "getOrder",
+        "tass_order_id": 412498
+    },
+    "required": {
+        "action": "getOrder",
+        "tass_order_id": 412498
+    }
+}

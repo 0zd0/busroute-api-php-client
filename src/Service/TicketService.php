@@ -3,16 +3,12 @@
 namespace Onepix\BusrouteApiClient\Service;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Onepix\BusrouteApiClient\Enum\RouteEnum;
-use Onepix\BusrouteApiClient\Model\Station\GetListOfArrivalStationsParametersModel;
-use Onepix\BusrouteApiClient\Model\Station\GetListOfArrivalStationsResponseModel;
-use Onepix\BusrouteApiClient\Model\Station\GetListOfDepartureStationsParametersModel;
-use Onepix\BusrouteApiClient\Model\Station\GetListOfDepartureStationsResponseModel;
-use Onepix\BusrouteApiClient\Model\Station\StationModel;
+use Onepix\BusrouteApiClient\Enum\ApiRouteEnum;
 use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsModel;
 use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsParametersModel;
 use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsResponseModel;
 use Onepix\BusrouteApiClient\Model\Ticket\CancelBookingParametersModel;
+use Onepix\BusrouteApiClient\Model\Ticket\CancelBookingResponseModel;
 use Onepix\BusrouteApiClient\Model\Ticket\RefundTicketsModel;
 use Onepix\BusrouteApiClient\Model\Ticket\RefundTicketsParametersModel;
 use Onepix\BusrouteApiClient\Model\Ticket\RefundTicketsResponseModel;
@@ -25,9 +21,9 @@ class TicketService extends AbstractService
      * @return BookTicketsModel|null
      * @throws GuzzleException
      */
-    public function bookTickets(BookTicketsParametersModel $data): ?array
+    public function bookTickets(BookTicketsParametersModel $data): ?BookTicketsModel
     {
-        $url = $this::buildRoute(RouteEnum::Default);
+        $url = $this::buildRoute(ApiRouteEnum::Default);
 
         $response = $this->getClient()->post(
             $url,
@@ -43,9 +39,9 @@ class TicketService extends AbstractService
      * @return RefundTicketsModel|null
      * @throws GuzzleException
      */
-    public function refundTickets(RefundTicketsParametersModel $data): ?array
+    public function refundTickets(RefundTicketsParametersModel $data): ?RefundTicketsModel
     {
-        $url = $this::buildRoute(RouteEnum::Default);
+        $url = $this::buildRoute(ApiRouteEnum::Default);
 
         $response = $this->getClient()->post(
             $url,
@@ -63,13 +59,15 @@ class TicketService extends AbstractService
      */
     public function cancelBooking(CancelBookingParametersModel $data): bool
     {
-        $url = $this::buildRoute(RouteEnum::Default);
+        $url = $this::buildRoute(ApiRouteEnum::Default);
 
         $response = $this->getClient()->post(
             $url,
             $data->toArray()
         );
 
-        return true;
+        $cancel = CancelBookingResponseModel::fromArray($response);
+
+        return $cancel->getError() === 0;
     }
 }

@@ -2,31 +2,31 @@
 
 namespace Onepix\BusrouteApiClient\Service;
 
+use Onepix\BusrouteApiClient\ApiClient;
 use Onepix\BusrouteApiClient\Constants;
-use Onepix\BusrouteApiClient\Enum\RouteEnum;
-use Onepix\BusrouteApiClient\HttpClient;
+use Onepix\BusrouteApiClient\Enum\ApiRouteEnum;
 
 abstract class AbstractService
 {
-    protected HttpClient $client;
+    protected ApiClient $client;
 
     public function __construct(
-        HttpClient $client
+        ApiClient $client
     ) {
         $this->client = $client;
     }
 
     /**
-     * @return HttpClient
+     * @return ApiClient
      */
-    public function getClient(): HttpClient
+    public function getClient(): ApiClient
     {
         return $this->client;
     }
 
     public static function buildRoute(
-        RouteEnum $route,
-        string $version = Constants::VERSION_API
+        ApiRouteEnum $route,
+        string       $version = Constants::VERSION_API
     ): string {
         return '/v' . $version . '/' . $route->value;
     }

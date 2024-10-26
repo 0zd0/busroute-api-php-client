@@ -2,8 +2,9 @@
 
 namespace Onepix\BusrouteApiClient\Service;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use Onepix\BusrouteApiClient\Enum\RouteEnum;
+use Onepix\BusrouteApiClient\Enum\ApiRouteEnum;
 use Onepix\BusrouteApiClient\Model\Route\GetListOfRoutesParametersModel;
 use Onepix\BusrouteApiClient\Model\Route\GetListOfRoutesResponseModel;
 use Onepix\BusrouteApiClient\Model\Route\GetRouteSeatsOfBusParametersModel;
@@ -20,10 +21,11 @@ class RouteService extends AbstractService
      *
      * @return RouteModel[]|null
      * @throws GuzzleException
+     * @throws Exception
      */
     public function getListOfRoutes(GetListOfRoutesParametersModel $data): ?array
     {
-        $url = $this::buildRoute(RouteEnum::Default);
+        $url = $this::buildRoute(ApiRouteEnum::Default);
 
         $response = $this->getClient()->post(
             $url,
@@ -38,10 +40,11 @@ class RouteService extends AbstractService
      *
      * @return RouteSeatsModel|null
      * @throws GuzzleException
+     * @throws Exception
      */
     public function getRouteSeats(GetRouteSeatsParametersModel $data): ?RouteSeatsModel
     {
-        $url = $this::buildRoute(RouteEnum::Default);
+        $url = $this::buildRoute(ApiRouteEnum::Default);
 
         $response = $this->getClient()->post(
             $url,
@@ -56,10 +59,11 @@ class RouteService extends AbstractService
      *
      * @return RouteSeatsModel|null
      * @throws GuzzleException
+     * @throws Exception
      */
     public function getRouteSeatsOfBus(GetRouteSeatsOfBusParametersModel $data): ?RouteSeatsModel
     {
-        $url = $this::buildRoute(RouteEnum::Default);
+        $url = $this::buildRoute(ApiRouteEnum::Default);
 
         $response = $this->getClient()->post(
             $url,

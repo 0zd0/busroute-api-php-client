@@ -2,7 +2,6 @@
 
 namespace Onepix\BusrouteApiClient;
 
-use GuzzleHttp\Client;
 use Onepix\BusrouteApiClient\Service\OrderService;
 use Onepix\BusrouteApiClient\Service\RouteService;
 use Onepix\BusrouteApiClient\Service\StationService;
@@ -10,7 +9,7 @@ use Onepix\BusrouteApiClient\Service\TicketService;
 
 class Api
 {
-    protected HttpClient $client;
+    protected ApiClient $client;
     protected string $apiKey;
     private ?RouteService $routeService = null;
     private ?StationService $stationService = null;
@@ -35,14 +34,46 @@ class Api
         return $this;
     }
 
-    public function getClient(): HttpClient
+    /**
+     * @param OrderService|null $orderService
+     *
+     * @return self
+     */
+    public function setOrderService(?OrderService $orderService): self
     {
-        return new HttpClient(
-            $this->apiKey,
-            new Client([
-                'base_uri' => Constants::PROTOCOL . Constants::BASE_URL_API,
-                'timeout' => 20
-            ])
+        $this->orderService = $orderService;
+
+        return $this;
+    }
+
+    /**
+     * @param StationService|null $stationService
+     *
+     * @return self
+     */
+    public function setStationService(?StationService $stationService): self
+    {
+        $this->stationService = $stationService;
+
+        return $this;
+    }
+
+    /**
+     * @param TicketService|null $ticketService
+     *
+     * @return self
+     */
+    public function setTicketService(?TicketService $ticketService): self
+    {
+        $this->ticketService = $ticketService;
+
+        return $this;
+    }
+
+    public function getApiClient(): ApiClient
+    {
+        return new ApiClient(
+            $this->apiKey
         );
     }
 
@@ -52,7 +83,7 @@ class Api
     public function route(): RouteService
     {
         if (is_null($this->routeService)) {
-            $this->routeService = new RouteService($this->getClient());
+            $this->routeService = new RouteService($this->getApiClient());
         }
 
         return $this->routeService;
@@ -63,8 +94,8 @@ class Api
      */
     public function station(): StationService
     {
-        if (is_null($this->routeService)) {
-            $this->stationService = new StationService($this->getClient());
+        if (is_null($this->stationService)) {
+            $this->stationService = new StationService($this->getApiClient());
         }
 
         return $this->stationService;
@@ -75,8 +106,8 @@ class Api
      */
     public function order(): OrderService
     {
-        if (is_null($this->routeService)) {
-            $this->orderService = new OrderService($this->getClient());
+        if (is_null($this->orderService)) {
+            $this->orderService = new OrderService($this->getApiClient());
         }
 
         return $this->orderService;
@@ -87,8 +118,8 @@ class Api
      */
     public function ticket(): TicketService
     {
-        if (is_null($this->routeService)) {
-            $this->ticketService = new TicketService($this->getClient());
+        if (is_null($this->ticketService)) {
+            $this->ticketService = new TicketService($this->getApiClient());
         }
 
         return $this->ticketService;

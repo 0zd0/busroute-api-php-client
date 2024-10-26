@@ -23,7 +23,7 @@ class BookTicketsParametersModel extends AbstractModel
     protected ?string $departureStation = null;
 
     /**
-     * @var BookTicketsParametersTicketModel[]|null $tickets
+     * @var TicketModel[]|null $tickets
      */
     protected ?array $tickets = null;
 

@@ -142,7 +142,7 @@ class GetListOfRoutesParametersModel extends AbstractModel
             ->setDepartureStation($response[self::DEPARTURE_STATION_KEY])
             ->setArrivalStation($response[self::ARRIVAL_STATION_KEY])
             ->setNumberOfSeats($response[self::NUMBER_OF_SEATS_KEY])
-            ->setFullData(FullDataEnum::tryFrom($response[self::FULL_DATA_KEY] ?? ''));
+            ->setFullData(FullDataEnum::tryFrom($response[self::FULL_DATA_KEY] ?? -1));
 
         return $model;
     }
