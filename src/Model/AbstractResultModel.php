@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient\Model;
 
+use Exception;
 use Onepix\BusrouteApiClient\Enum\ActionEnum;
 
 abstract class AbstractResultModel extends AbstractModel
@@ -162,16 +163,20 @@ abstract class AbstractResultModel extends AbstractModel
      * @param array $return
      *
      * @return AbstractModel
+     * @throws Exception
      */
     public function setReturn(array $return): AbstractModel
     {
+        if (static::RETURN_MODEL === '') {
+            return $this;
+        }
         /**
          * @var AbstractModel $returnModel
          */
         $returnModel = static::RETURN_MODEL;
 
         if (static::ARRAY_MODELS) {
-            $this->multipleReturns = array_map(
+            $this->setMultipleReturns(array_map(
                 function ($item) use ($returnModel) {
                     if ($returnModel::IS_ONE_FIELD) {
                         return $returnModel::fromString($item);
@@ -179,19 +184,20 @@ abstract class AbstractResultModel extends AbstractModel
                         return $returnModel::fromArray($item);
                     }
 
-                    return $item;
+                    throw new Exception("Invalid item type");
                 },
                 $return
-            );
+            ));
         } else {
-            $this->singleReturn = $returnModel::fromArray($return);
+            $this->setSingleReturn($returnModel::fromArray($return));
         }
 
         return $this;
     }
-
+    
     /**
      * @inheritDoc
+     * @throws Exception
      */
     public static function fromArray(array $response): static
     {

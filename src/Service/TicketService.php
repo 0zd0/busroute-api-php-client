@@ -8,6 +8,7 @@ use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsModel;
 use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsParametersModel;
 use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsResponseModel;
 use Onepix\BusrouteApiClient\Model\Ticket\CancelBookingParametersModel;
+use Onepix\BusrouteApiClient\Model\Ticket\CancelBookingResponseModel;
 use Onepix\BusrouteApiClient\Model\Ticket\RefundTicketsModel;
 use Onepix\BusrouteApiClient\Model\Ticket\RefundTicketsParametersModel;
 use Onepix\BusrouteApiClient\Model\Ticket\RefundTicketsResponseModel;
@@ -20,7 +21,7 @@ class TicketService extends AbstractService
      * @return BookTicketsModel|null
      * @throws GuzzleException
      */
-    public function bookTickets(BookTicketsParametersModel $data): ?array
+    public function bookTickets(BookTicketsParametersModel $data): ?BookTicketsModel
     {
         $url = $this::buildRoute(ApiRouteEnum::Default);
 
@@ -38,7 +39,7 @@ class TicketService extends AbstractService
      * @return RefundTicketsModel|null
      * @throws GuzzleException
      */
-    public function refundTickets(RefundTicketsParametersModel $data): ?array
+    public function refundTickets(RefundTicketsParametersModel $data): ?RefundTicketsModel
     {
         $url = $this::buildRoute(ApiRouteEnum::Default);
 
@@ -65,6 +66,8 @@ class TicketService extends AbstractService
             $data->toArray()
         );
 
-        return true;
+        $cancel = CancelBookingResponseModel::fromArray($response);
+
+        return $cancel->getError() === 0;
     }
 }

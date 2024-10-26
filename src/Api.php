@@ -94,7 +94,7 @@ class Api
      */
     public function station(): StationService
     {
-        if (is_null($this->routeService)) {
+        if (is_null($this->stationService)) {
             $this->stationService = new StationService($this->getApiClient());
         }
 
@@ -106,7 +106,7 @@ class Api
      */
     public function order(): OrderService
     {
-        if (is_null($this->routeService)) {
+        if (is_null($this->orderService)) {
             $this->orderService = new OrderService($this->getApiClient());
         }
 
@@ -118,7 +118,7 @@ class Api
      */
     public function ticket(): TicketService
     {
-        if (is_null($this->routeService)) {
+        if (is_null($this->ticketService)) {
             $this->ticketService = new TicketService($this->getApiClient());
         }
 

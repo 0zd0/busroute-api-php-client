@@ -35,10 +35,17 @@ trait HelperTrait
         $this->apiClientMock = new ApiClient('');
         $this->apiClientMock->setClient($this->clientMock);
 
-        $this->apiMock = $this->createMock(Api::class);
+        $this->apiMock = $this->getMockBuilder(Api::class)
+                              ->setConstructorArgs([''])
+                              ->onlyMethods(['getApiClient'])
+                              ->getMock();
         $this->apiMock
             ->method('getApiClient')
             ->willReturn($this->apiClientMock);
+//        $this->apiMock = $this->createMock(Api::class);
+//        $this->apiMock
+//            ->method('getApiClient')
+//            ->willReturn($this->apiClientMock);
 
         $this->api = new Api(
             $this->devConfig['api']['key'],

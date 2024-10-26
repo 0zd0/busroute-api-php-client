@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient\Service;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Onepix\BusrouteApiClient\Enum\ApiRouteEnum;
 use Onepix\BusrouteApiClient\Model\Route\GetListOfRoutesParametersModel;
@@ -20,6 +21,7 @@ class RouteService extends AbstractService
      *
      * @return RouteModel[]|null
      * @throws GuzzleException
+     * @throws Exception
      */
     public function getListOfRoutes(GetListOfRoutesParametersModel $data): ?array
     {
@@ -38,6 +40,7 @@ class RouteService extends AbstractService
      *
      * @return RouteSeatsModel|null
      * @throws GuzzleException
+     * @throws Exception
      */
     public function getRouteSeats(GetRouteSeatsParametersModel $data): ?RouteSeatsModel
     {
@@ -56,6 +59,7 @@ class RouteService extends AbstractService
      *
      * @return RouteSeatsModel|null
      * @throws GuzzleException
+     * @throws Exception
      */
     public function getRouteSeatsOfBus(GetRouteSeatsOfBusParametersModel $data): ?RouteSeatsModel
     {
