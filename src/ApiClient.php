@@ -70,7 +70,8 @@ class ApiClient
         string $apiKey
     ): array {
         return [
-            'Authorization' => $apiKey
+            'Authorization' => "Bearer $apiKey",
+            'Content-type' => "application/json",
         ];
     }
 
@@ -135,7 +136,7 @@ class ApiClient
                 return false;
             }
 
-            return $response && $response->getStatusCode() >= 500 || $exception instanceof RequestException;
+            return $response && $response->getStatusCode() === 429 || $exception instanceof RequestException;
         };
     }
 
