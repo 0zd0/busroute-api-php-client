@@ -5,16 +5,13 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     autoconf \
-    build-essential \
-    libxml2-dev
+    build-essential
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN pecl install xdebug-3.3.1 \
+RUN pecl install xdebug-3.1.5 \
     && docker-php-ext-enable xdebug
 
-RUN mkdir -p /opt/phpstorm-coverage \
-    && chown -R www-data:www-data /opt/phpstorm-coverage \
-    && chmod -R 777 /opt/phpstorm-coverage
+# COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 WORKDIR /var/www/html

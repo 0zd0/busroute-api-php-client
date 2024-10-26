@@ -1,10 +1,3 @@
-/.gitattributes export-ignore
-/tests export-ignore
+docker-compose.yml export-ignore
+.editorconfig export-ignore
 /docker export-ignore
-/config.sample.toml export-ignore
-/phpunit.integration.xml export-ignore
-/phpunit.unit.xml export-ignore
-/stubs export-ignore
-/.gitignore export-ignore
-/.editorconfig export-ignore
-/docker-compose.yml export-ignore

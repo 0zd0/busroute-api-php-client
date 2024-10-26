@@ -1,8 +1,0 @@
-{
-    "all": {
-        "action": "getListOfDepartureStations"
-    },
-    "required": {
-        "action": "getListOfDepartureStations"
-    }
-}
