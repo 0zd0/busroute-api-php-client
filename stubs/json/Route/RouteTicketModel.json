@@ -1,0 +1,11 @@
+{
+    "all": {
+        "tariff": 250,
+        "commission": 25,
+        "service_charge": 0,
+        "agent_charge": 19.25,
+        "amount": 294.25,
+        "insurance": 70
+    },
+    "required": {}
+}

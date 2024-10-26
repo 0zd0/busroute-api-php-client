@@ -3,9 +3,11 @@ services:
     build:
       context: docker/php
       dockerfile: Dockerfile
-    container_name: php8
+    container_name: busroute-php8.1
     volumes:
       - .:/var/www/html
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ./coverage:/opt/phpstorm-coverage
     ports:
       - "9000:9000"
     environment:

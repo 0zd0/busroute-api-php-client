@@ -1,0 +1,14 @@
+{
+    "all": {
+        "action": "refundTickets",
+        "tass_order_id": "412492",
+        "seats": "1,2",
+        "oper": "1",
+        "mode": "1"
+    },
+    "required": {
+        "action": "refundTickets",
+        "tass_order_id": "412492",
+        "seats": "1"
+    }
+}
