@@ -42,10 +42,6 @@ trait HelperTrait
         $this->apiMock
             ->method('getApiClient')
             ->willReturn($this->apiClientMock);
-//        $this->apiMock = $this->createMock(Api::class);
-//        $this->apiMock
-//            ->method('getApiClient')
-//            ->willReturn($this->apiClientMock);
 
         $this->api = new Api(
             $this->devConfig['api']['key'],
