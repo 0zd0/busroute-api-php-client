@@ -130,7 +130,7 @@ class ApiClient
             int $retries,
             RequestInterface $request,
             ResponseInterface $response = null,
-            RequestException $exception = null
+            GuzzleException $exception = null
         ) use ($maxRetries) {
             if ($retries >= $maxRetries) {
                 return false;
