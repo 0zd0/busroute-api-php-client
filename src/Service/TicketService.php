@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient\Service;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Onepix\BusrouteApiClient\Enum\ApiRouteEnum;
 use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsModel;
@@ -20,6 +21,7 @@ class TicketService extends AbstractService
      *
      * @return BookTicketsModel|null
      * @throws GuzzleException
+     * @throws Exception
      */
     public function bookTickets(BookTicketsParametersModel $data): ?BookTicketsModel
     {
@@ -29,8 +31,11 @@ class TicketService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = BookTicketsResponseModel::fromArray($response);
 
-        return BookTicketsResponseModel::fromArray($response)->getSingleReturn();
+        $this->setLastResult($result);
+
+        return $result->getSingleReturn();
     }
 
     /**
@@ -47,8 +52,11 @@ class TicketService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = RefundTicketsResponseModel::fromArray($response);
 
-        return RefundTicketsResponseModel::fromArray($response)->getSingleReturn();
+        $this->setLastResult($result);
+
+        return $result->getSingleReturn();
     }
 
     /**
@@ -67,6 +75,8 @@ class TicketService extends AbstractService
         );
 
         $cancel = CancelBookingResponseModel::fromArray($response);
+
+        $this->setLastResult($cancel);
 
         return $cancel->getError() === 0;
     }

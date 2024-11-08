@@ -24,6 +24,8 @@ class CountryServiceTest extends AbstractServiceHelper
             )
         );
 
+        $this::assertInstanceOf(GetListOfCountriesResponseModel::class, $this->country->getLastResult());
+
         $this::assertContainsOnlyInstancesOf(CountryModel::class, $stations);
     }
 }

@@ -224,7 +224,9 @@ abstract class AbstractResultModel extends AbstractModel
     public function toArray(): array
     {
         if (static::ARRAY_MODELS) {
-            $result = array_map(fn($item) => $item::IS_ONE_FIELD ? $item->toString() : $item->toArray(), $this->getMultipleReturns() ?? []);
+            $result = array_map(fn($item) => $item::IS_ONE_FIELD
+                ? $item->toString()
+                : $item->toArray(), $this->getMultipleReturns() ?? []);
             if (empty($result)) {
                 $result = null;
             }

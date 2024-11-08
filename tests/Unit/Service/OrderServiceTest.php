@@ -23,6 +23,8 @@ class OrderServiceTest extends AbstractServiceHelper
                 ->setTassOrderId(222)
         );
 
+        $this::assertInstanceOf(GetOrderResponseModel::class, $this->order->getLastResult());
+
         $this::assertInstanceOf(OrderModel::class, $order);
     }
 }

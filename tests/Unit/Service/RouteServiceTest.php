@@ -29,6 +29,8 @@ class RouteServiceTest extends AbstractServiceHelper
             )
         );
 
+        $this::assertInstanceOf(GetListOfRoutesResponseModel::class, $this->route->getLastResult());
+
         $this::assertContainsOnlyInstancesOf(RouteModel::class, $routes);
     }
 
@@ -46,6 +48,8 @@ class RouteServiceTest extends AbstractServiceHelper
             )
         );
 
+        $this::assertInstanceOf(GetRouteSeatsResponseModel::class, $this->route->getLastResult());
+
         $this::assertInstanceOf(RouteSeatsModel::class, $seats);
     }
 
@@ -62,6 +66,8 @@ class RouteServiceTest extends AbstractServiceHelper
                 $this::getStubJsonModelWithRequiredFields(GetRouteSeatsOfBusParametersModel::getClassName())
             )
         );
+
+        $this::assertInstanceOf(GetRouteSeatsOfBusResponseModel::class, $this->route->getLastResult());
 
         $this::assertInstanceOf(RouteSeatsModel::class, $seats);
     }
