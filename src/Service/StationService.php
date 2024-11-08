@@ -28,8 +28,11 @@ class StationService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = GetListOfDepartureStationsResponseModel::fromArray($response);
 
-        return GetListOfDepartureStationsResponseModel::fromArray($response)->getMultipleReturns();
+        $this->setLastResult($result);
+
+        return $result->getMultipleReturns();
     }
 
     /**
@@ -47,7 +50,10 @@ class StationService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = GetListOfArrivalStationsResponseModel::fromArray($response);
 
-        return GetListOfArrivalStationsResponseModel::fromArray($response)->getMultipleReturns();
+        $this->setLastResult($result);
+
+        return $result->getMultipleReturns();
     }
 }

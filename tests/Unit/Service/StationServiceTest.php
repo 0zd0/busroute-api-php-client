@@ -26,6 +26,8 @@ class StationServiceTest extends AbstractServiceHelper
             )
         );
 
+        $this::assertInstanceOf(GetListOfDepartureStationsResponseModel::class, $this->station->getLastResult());
+
         $this::assertContainsOnlyInstancesOf(StationModel::class, $stations);
     }
 
@@ -42,6 +44,8 @@ class StationServiceTest extends AbstractServiceHelper
                 $this::getStubJsonModelWithRequiredFields(GetListOfArrivalStationsParametersModel::getClassName())
             )
         );
+
+        $this::assertInstanceOf(GetListOfArrivalStationsResponseModel::class, $this->station->getLastResult());
 
         $this::assertContainsOnlyInstancesOf(StationModel::class, $stations);
     }

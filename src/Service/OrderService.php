@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient\Service;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Onepix\BusrouteApiClient\Enum\ApiRouteEnum;
 use Onepix\BusrouteApiClient\Model\Order\GetOrderParametersModel;
@@ -15,6 +16,7 @@ class OrderService extends AbstractService
      *
      * @return OrderModel|null
      * @throws GuzzleException
+     * @throws Exception
      */
     public function getOrder(GetOrderParametersModel $data): ?OrderModel
     {
@@ -24,7 +26,10 @@ class OrderService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = GetOrderResponseModel::fromArray($response);
 
-        return GetOrderResponseModel::fromArray($response)->getSingleReturn();
+        $this->setLastResult($result);
+
+        return $result->getSingleReturn();
     }
 }

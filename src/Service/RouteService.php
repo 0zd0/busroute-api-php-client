@@ -31,8 +31,11 @@ class RouteService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = GetListOfRoutesResponseModel::fromArray($response);
 
-        return GetListOfRoutesResponseModel::fromArray($response)->getMultipleReturns();
+        $this->setLastResult($result);
+
+        return $result->getMultipleReturns();
     }
 
     /**
@@ -50,8 +53,11 @@ class RouteService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = GetRouteSeatsResponseModel::fromArray($response);
 
-        return GetRouteSeatsResponseModel::fromArray($response)->getSingleReturn();
+        $this->setLastResult($result);
+
+        return $result->getSingleReturn();
     }
 
     /**
@@ -69,7 +75,10 @@ class RouteService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = GetRouteSeatsOfBusResponseModel::fromArray($response);
 
-        return GetRouteSeatsOfBusResponseModel::fromArray($response)->getSingleReturn();
+        $this->setLastResult($result);
+
+        return $result->getSingleReturn();
     }
 }

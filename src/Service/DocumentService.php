@@ -26,7 +26,10 @@ class DocumentService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = GetListOfDocumentsResponseModel::fromArray($response);
 
-        return GetListOfDocumentsResponseModel::fromArray($response)->getMultipleReturns();
+        $this->setLastResult($result);
+
+        return $result->getMultipleReturns();
     }
 }

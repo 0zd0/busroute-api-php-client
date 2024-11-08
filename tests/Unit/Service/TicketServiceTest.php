@@ -4,9 +4,6 @@ namespace Onepix\BusrouteApiClient\Test\Unit\Service;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use Onepix\BusrouteApiClient\Model\Order\GetOrderParametersModel;
-use Onepix\BusrouteApiClient\Model\Order\GetOrderResponseModel;
-use Onepix\BusrouteApiClient\Model\Order\OrderModel;
 use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsModel;
 use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsParametersModel;
 use Onepix\BusrouteApiClient\Model\Ticket\BookTicketsResponseModel;
@@ -32,6 +29,8 @@ class TicketServiceTest extends AbstractServiceHelper
             )
         );
 
+        $this::assertInstanceOf(BookTicketsResponseModel::class, $this->ticket->getLastResult());
+
         $this::assertInstanceOf(BookTicketsModel::class, $tickets);
     }
 
@@ -49,6 +48,8 @@ class TicketServiceTest extends AbstractServiceHelper
             )
         );
 
+        $this::assertInstanceOf(RefundTicketsResponseModel::class, $this->ticket->getLastResult());
+
         $this::assertInstanceOf(RefundTicketsModel::class, $tickets);
     }
 
@@ -65,6 +66,8 @@ class TicketServiceTest extends AbstractServiceHelper
                 $this::getStubJsonModelWithRequiredFields(CancelBookingParametersModel::getClassName())
             )
         );
+
+        $this::assertInstanceOf(CancelBookingResponseModel::class, $this->ticket->getLastResult());
 
         $this::assertTrue($isBooking);
     }

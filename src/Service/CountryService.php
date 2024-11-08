@@ -26,7 +26,10 @@ class CountryService extends AbstractService
             $url,
             $data->toArray()
         );
+        $result   = GetListOfCountriesResponseModel::fromArray($response);
 
-        return GetListOfCountriesResponseModel::fromArray($response)->getMultipleReturns();
+        $this->setLastResult($result);
+
+        return $result->getMultipleReturns();
     }
 }

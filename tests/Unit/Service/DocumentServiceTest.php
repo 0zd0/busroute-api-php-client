@@ -24,6 +24,8 @@ class DocumentServiceTest extends AbstractServiceHelper
             )
         );
 
+        $this::assertInstanceOf(GetListOfDocumentsResponseModel::class, $this->document->getLastResult());
+
         $this::assertContainsOnlyInstancesOf(DocumentModel::class, $stations);
     }
 }
