@@ -22,7 +22,7 @@ abstract class AbstractGetRouteSeatsParameters extends AbstractModel
     protected string $departureTime;
     protected string $departureStation;
     protected string $arrivalStation;
-    protected ?string $routeEndStation;
+    protected ?string $routeEndStation = null;
     protected int $numberOfSeats;
 
     /**

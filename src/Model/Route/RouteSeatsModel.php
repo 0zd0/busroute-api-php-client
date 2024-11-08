@@ -136,7 +136,11 @@ class RouteSeatsModel extends AbstractModel
                     ? explode(self::SEATS_SEPARATOR, $response[self::AVAILABLE_SEATS_KEY])
                     : null
             )
-            ->setRegPD($response[self::REG_PD_KEY] ?? null);
+            ->setRegPD(
+                isset($response[self::REG_PD_KEY]) && is_int($response[self::REG_PD_KEY])
+                    ? $response[self::REG_PD_KEY]
+                    : null
+            );
 
         return $model;
     }
