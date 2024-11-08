@@ -1,0 +1,17 @@
+{
+    "all": {
+        "error": 0,
+        "action": "getListOfCountries",
+        "counter": 4,
+        "results": {
+            "1": "АФГАНИСТАН",
+            "2": "АЛБАНИЯ",
+            "3": "АНТАРКТИДА",
+            "4": "АЛЖИР"
+        }
+    },
+    "required": {
+        "error": 1,
+        "action": "getListOfCountries"
+    }
+}

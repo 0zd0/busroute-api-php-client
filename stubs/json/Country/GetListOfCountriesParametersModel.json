@@ -1,0 +1,8 @@
+{
+    "all": {
+        "action": "getListOfCountries"
+    },
+    "required": {
+        "action": "getListOfCountries"
+    }
+}

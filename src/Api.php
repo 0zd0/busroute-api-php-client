@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient;
 
+use Onepix\BusrouteApiClient\Service\CountryService;
 use Onepix\BusrouteApiClient\Service\DocumentService;
 use Onepix\BusrouteApiClient\Service\OrderService;
 use Onepix\BusrouteApiClient\Service\RouteService;
@@ -17,6 +18,7 @@ class Api
     private ?OrderService $orderService = null;
     private ?TicketService $ticketService = null;
     private ?DocumentService $documentService = null;
+    private ?CountryService $countryService = null;
 
     public function __construct(
         string $apiKey
@@ -104,6 +106,30 @@ class Api
     }
 
     /**
+     * @param CountryService|null $countryService
+     *
+     * @return self
+     */
+    public function setCountryService(?CountryService $countryService): self
+    {
+        $this->countryService = $countryService;
+
+        return $this;
+    }
+
+    /**
+     * @param DocumentService|null $documentService
+     *
+     * @return self
+     */
+    public function setDocumentService(?DocumentService $documentService): self
+    {
+        $this->documentService = $documentService;
+
+        return $this;
+    }
+
+    /**
      * @return OrderService
      */
     public function order(): OrderService
@@ -137,5 +163,17 @@ class Api
         }
 
         return $this->documentService;
+    }
+
+    /**
+     * @return CountryService
+     */
+    public function country(): CountryService
+    {
+        if (is_null($this->countryService)) {
+            $this->countryService = new CountryService($this->getApiClient());
+        }
+
+        return $this->countryService;
     }
 }
