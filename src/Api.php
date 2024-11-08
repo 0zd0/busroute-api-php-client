@@ -2,6 +2,7 @@
 
 namespace Onepix\BusrouteApiClient;
 
+use Onepix\BusrouteApiClient\Service\DocumentService;
 use Onepix\BusrouteApiClient\Service\OrderService;
 use Onepix\BusrouteApiClient\Service\RouteService;
 use Onepix\BusrouteApiClient\Service\StationService;
@@ -15,6 +16,7 @@ class Api
     private ?StationService $stationService = null;
     private ?OrderService $orderService = null;
     private ?TicketService $ticketService = null;
+    private ?DocumentService $documentService = null;
 
     public function __construct(
         string $apiKey
@@ -123,5 +125,17 @@ class Api
         }
 
         return $this->ticketService;
+    }
+
+    /**
+     * @return DocumentService
+     */
+    public function document(): DocumentService
+    {
+        if (is_null($this->documentService)) {
+            $this->documentService = new DocumentService($this->getApiClient());
+        }
+
+        return $this->documentService;
     }
 }

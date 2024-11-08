@@ -4,6 +4,7 @@ namespace Onepix\BusrouteApiClient\Test\Unit\Service;
 
 use Exception;
 use GuzzleHttp\Psr7\Response;
+use Onepix\BusrouteApiClient\Service\DocumentService;
 use Onepix\BusrouteApiClient\Service\OrderService;
 use Onepix\BusrouteApiClient\Service\RouteService;
 use Onepix\BusrouteApiClient\Service\StationService;
@@ -19,6 +20,7 @@ class AbstractServiceHelper extends TestCase
     protected RouteService $route;
     protected StationService $station;
     protected TicketService $ticket;
+    protected DocumentService $document;
 
     protected function setUp(): void
     {
@@ -28,6 +30,7 @@ class AbstractServiceHelper extends TestCase
         $this->route = $this->apiMock->route();
         $this->station = $this->apiMock->station();
         $this->ticket = $this->apiMock->ticket();
+        $this->document = $this->apiMock->document();
     }
 
     /**
