@@ -5,6 +5,7 @@ namespace Onepix\BusrouteApiClient;
 use Onepix\BusrouteApiClient\Service\CountryService;
 use Onepix\BusrouteApiClient\Service\DocumentService;
 use Onepix\BusrouteApiClient\Service\OrderService;
+use Onepix\BusrouteApiClient\Service\PaymentService;
 use Onepix\BusrouteApiClient\Service\RouteService;
 use Onepix\BusrouteApiClient\Service\StationService;
 use Onepix\BusrouteApiClient\Service\TicketService;
@@ -19,6 +20,7 @@ class Api
     private ?TicketService $ticketService = null;
     private ?DocumentService $documentService = null;
     private ?CountryService $countryService = null;
+    private ?PaymentService $paymentService = null;
 
     public function __construct(
         string $apiKey
@@ -70,6 +72,18 @@ class Api
     public function setTicketService(?TicketService $ticketService): self
     {
         $this->ticketService = $ticketService;
+
+        return $this;
+    }
+
+    /**
+     * @param PaymentService|null $paymentService
+     *
+     * @return self
+     */
+    public function setPaymentService(?PaymentService $paymentService): self
+    {
+        $this->paymentService = $paymentService;
 
         return $this;
     }
@@ -175,5 +189,17 @@ class Api
         }
 
         return $this->countryService;
+    }
+
+    /**
+     * @return PaymentService
+     */
+    public function payment(): PaymentService
+    {
+        if (is_null($this->paymentService)) {
+            $this->paymentService = new PaymentService($this->getApiClient());
+        }
+
+        return $this->paymentService;
     }
 }

@@ -1,0 +1,60 @@
+{
+    "all": {
+        "transaction": "4791563",
+        "id": "231f324b6ed71f83ff51913d1301ee13",
+        "amount": 401.25,
+        "tass_order_id": "412498",
+        "date_of_purchase": "31.01.2017",
+        "carrier": "ИП Матвеева О.В.",
+        "busname": "MERCEDES 49",
+        "barcode": "00100000000203557726",
+        "platnom": "1",
+        "marshnom": "4630",
+        "pvednom": "02307420/03",
+        "buskat": "",
+        "tickets": {
+            "1": {
+                "surname": "Иванов",
+                "firstname": "Василий",
+                "patronymic": "Петрович",
+                "document": "Паспорт РФ",
+                "document_series": "4511",
+                "document_number": "232425",
+                "date_of_birth": "01.02.2008",
+                "nationality": "РОССИЯ",
+                "gender": "male",
+                "ticket_type": "child",
+                "tariff": 125,
+                "comission": 0,
+                "service_charge": 0,
+                "agent_charge": 8.75,
+                "amount": 133.75,
+                "ticket_series": "011777267797",
+                "ticket_number": "319880017",
+                "tickbarcod": "772605009503"
+            },
+            "2": {
+                "surname": "Иванова",
+                "firstname": "Василиса",
+                "patronymic": "Петровна",
+                "document": "Паспорт РФ",
+                "document_series": "4512",
+                "document_number": "232125",
+                "date_of_birth": "01.02.1990",
+                "nationality": "РОССИЯ",
+                "gender": "female",
+                "ticket_type": "adult",
+                "tariff": 250,
+                "comission": 0,
+                "service_charge": 0,
+                "agent_charge": 17.5,
+                "amount": 267.5,
+                "ticket_series": "011777267797",
+                "ticket_number": "319880018",
+                "tickbarcod": "772605009504"
+            }
+        }
+    },
+    "required": {}
+}
+

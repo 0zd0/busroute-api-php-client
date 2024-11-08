@@ -161,7 +161,9 @@ class OrderModel extends AbstractModel
             ->setAmount($response[self::AMOUNT_KEY] ?? null)
             ->setTassOrderId($response[self::TASS_ORDER_ID_KEY] ?? null)
             ->setDateOfPurchase(
-                isset($response[self::DATE_OF_PURCHASE_KEY]) ? new DateTime($response[self::DATE_OF_PURCHASE_KEY]) : null
+                isset($response[self::DATE_OF_PURCHASE_KEY])
+                    ? new DateTime($response[self::DATE_OF_PURCHASE_KEY])
+                    : null
             )
             ->setTickets(
                 isset($response[self::TICKETS_KEY])
