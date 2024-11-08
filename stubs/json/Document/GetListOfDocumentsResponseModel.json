@@ -1,0 +1,17 @@
+{
+    "all": {
+        "error": 0,
+        "action": "getListOfDocuments",
+        "counter": 4,
+        "results": [
+            "Паспорт РФ",
+            "Св. о рождении",
+            "Загран. паспорт РФ",
+            "Паспорт моряка"
+        ]
+    },
+    "required": {
+        "error": 1,
+        "action": "getListOfDocuments"
+    }
+}

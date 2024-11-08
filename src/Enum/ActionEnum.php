@@ -14,4 +14,5 @@ enum ActionEnum: string
     case GET_ORDER                      = 'getOrder';
     case GET_ROUTE_SEATS                = 'getRouteSeats';
     case GET_ROUTE_SEATS_OF_BUS         = 'getRouteSeatsofBus';
+    case GET_LIST_OF_DOCUMENTS         = 'getListOfDocuments';
 }
