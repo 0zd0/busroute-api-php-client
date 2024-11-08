@@ -7,6 +7,7 @@ use GuzzleHttp\Psr7\Response;
 use Onepix\BusrouteApiClient\Service\CountryService;
 use Onepix\BusrouteApiClient\Service\DocumentService;
 use Onepix\BusrouteApiClient\Service\OrderService;
+use Onepix\BusrouteApiClient\Service\PaymentService;
 use Onepix\BusrouteApiClient\Service\RouteService;
 use Onepix\BusrouteApiClient\Service\StationService;
 use Onepix\BusrouteApiClient\Service\TicketService;
@@ -23,6 +24,7 @@ class AbstractServiceHelper extends TestCase
     protected TicketService $ticket;
     protected DocumentService $document;
     protected CountryService $country;
+    protected PaymentService $payment;
 
     protected function setUp(): void
     {
@@ -34,6 +36,7 @@ class AbstractServiceHelper extends TestCase
         $this->ticket = $this->apiMock->ticket();
         $this->document = $this->apiMock->document();
         $this->country = $this->apiMock->country();
+        $this->payment = $this->apiMock->payment();
     }
 
     /**
